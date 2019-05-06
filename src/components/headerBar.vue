@@ -1,33 +1,43 @@
 <template>
-    <div id="app">
-        <div class="header">
-            <div class="content">
-                <div class="logo">logo</div>
-                <div class="nav">
-                    <router-link  v-for="(item, index) in items" :key="index" :to="item.url" class="item">{{ item.title }}</router-link>
-                </div>
-                <div class="button">
-                    <div class="logIn">登录</div>
-                    <div class="signUp">注册</div>
-                </div>
+    <div class="header">
+        <div class="content">
+            <div class="logo">logo</div>
+            <div class="nav" @click.native="changeTabbar(active)">
+                <a class="item">首页</a>
+                <a class="item">登录</a>
+                <a class="item">注册</a>
+            </div>
+            <div class="button">
+                <div class="logIn">登录</div>
+                <div class="signUp">注册</div>
             </div>
         </div>
-        <router-view/>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'App',
+    name: 'header-bar',
     data() {
         return {
-            items: [
-                {title: '首页', url: '/index', name: ''},
-                {title: '登录', url: '/login'},
-                {title: '注册', url: '/signup'}
-            ]
+            active: 0
         }
-    }
+    },
+    methods: {
+        changeTabbar: function (active) {
+            switch (active) {
+                case 0:
+                    this.$router.push('/')
+                    break;
+                case 1:
+                    this.$router.push('/login')
+                    break;
+                case 2:
+                    this.$router.push('/signup')
+                    break;
+            }
+        }
+    },
 }
 </script>
 
@@ -75,7 +85,6 @@ export default {
     margin: 0 50px;
     text-align: center;
     font-size: 22px;
-    color: #fff;
 }
 .button{
     position: absolute;
@@ -92,8 +101,5 @@ export default {
     flex: 1;
     text-align: center;
     color: #fff
-}
-.router-link-active{
-    color: #008cff!important
 }
 </style>
